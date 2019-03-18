@@ -14,6 +14,9 @@ A0 pin. Check the serial monitor to view the voltage generated.
 
 Development environment specifics:
 Arduino 1.6.7
+******************************************************************************
+We modified the code from this source for the buzzer/song portion of our project. 
+Source: https://www.princetronics.com/supermariothemesong/
 ******************************************************************************/
  
 #define NOTE_B0  31
