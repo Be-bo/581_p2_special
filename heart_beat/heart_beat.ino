@@ -30,8 +30,10 @@ CRGB leds[NUM_LEDS];
 const int PulseWire = A8;       // PulseSensor PURPLE WIRE connected to ANALOG PIN 0
 const int LED13 = 13;          // The on-board Arduino LED, close to PIN 13.
 int Threshold = 550;           // Determine which Signal to "count as a beat" and which to ignore.
-                               // Use the "Gettting Started Project" to fine-tune Threshold Value beyond default setting.
+int currentBPM = 0;
+CRGB color = 0x8B0000;                               // Use the "Gettting Started Project" to fine-tune Threshold Value beyond default setting.
                                // Otherwise leave the default "550" value. 
+                            
                                
 PulseSensorPlayground pulseSensor;  // Creates an instance of the PulseSensorPlayground object called "pulseSensor"
 
@@ -63,14 +65,22 @@ if (pulseSensor.sawStartOfBeat()) {            // Constantly test to see if "a b
  Serial.println("♥  A HeartBeat Happened ! "); // If test is "true", print a message "a heartbeat happened".
  Serial.print("BPM: ");                        // Print phrase "BPM: " 
  Serial.println(myBPM);
+
+ if (myBPM < 60) {
+  color = 0x7FFFD4;
+ } else if (myBPM < 100) {
+  color = 0xFF7F50;
+ } else {
+  color = 0x8B0000;
+ }
  
- for(int i = 0; i<NUM_LEDS; i++){
-    leds[i] = CRGB::Green;
+ for(int i = 5; i<NUM_LEDS; i++){
+    leds[i] = color;
     FastLED.show();
 //    delay(100);
   }
   delay(500);
-  for(int i = 0; i<NUM_LEDS; i++){
+  for(int i = 5; i<NUM_LEDS; i++){
     leds[i] = CRGB::Black;
     FastLED.show();
   } 
@@ -81,5 +91,3 @@ Serial.println(analogRead(PulseWire));
   delay(20);                    // considered best practice in a simple sketch.
 
 }
-
-  
