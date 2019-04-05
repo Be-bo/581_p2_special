@@ -55,6 +55,24 @@ void setup() {
 }
 
 
+void blink(int index, int d){
+    leds[index] = color;
+    delay(d);
+    leds[index] = CRGB::Black;
+
+}
+
+void pattern1(int d){
+  int a  = 25;
+  int b = 7;
+  for (int i = 0; i < 9; i++){
+      blink(a, d);
+      blink(b, d);
+      a--;
+      b++;
+      
+  }
+}
 
 void loop() {
 
@@ -66,28 +84,31 @@ if (pulseSensor.sawStartOfBeat()) {            // Constantly test to see if "a b
  Serial.print("BPM: ");                        // Print phrase "BPM: " 
  Serial.println(myBPM);
 
- if (myBPM < 60) {
-  color = 0x7FFFD4;
+ if (myBPM < 70) {
+  color = 0x00008B;
  } else if (myBPM < 100) {
-  color = 0xFF7F50;
+  color = 0x005555;
  } else {
-  color = 0x8B0000;
+  color = 0x005500;
  }
- 
- for(int i = 5; i<NUM_LEDS; i++){
+
+// pattern1(20);
+    leds[NUM_LEDS-1] = color;
+    FastLED.show();
+    delay(1);
+ for(int i = 7; i<NUM_LEDS; i++){
     leds[i] = color;
     FastLED.show();
-//    delay(100);
+    delay(35);
   }
-  delay(500);
-  for(int i = 5; i<NUM_LEDS; i++){
+  delay(50);
+  for(int i =7; i<NUM_LEDS; i++){
     leds[i] = CRGB::Black;
     FastLED.show();
   } 
 }
 
-Serial.println(analogRead(PulseWire));
-
-  delay(20);                    // considered best practice in a simple sketch.
+//Serial.println(analogRead(PulseWire));
+delay(20);                    // considered best practice in a simple sketch.
 
 }
